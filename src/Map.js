@@ -3,8 +3,8 @@ import { loadModules } from 'esri-loader';
 
 const Map = () => {
     useEffect(() => {
-        loadModules(['esri/Map', 'esri/views/MapView', 'esri/layers/GraphicsLayer', 'esri/Graphic'], { css: true })
-            .then(([Map, MapView, GraphicsLayer, Graphic]) => {
+        loadModules(['esri/Map', 'esri/views/MapView', 'esri/layers/GraphicsLayer', 'esri/Graphic', 'esri/layers/FeatureLayer'], { css: true })
+            .then(([Map, MapView, GraphicsLayer, Graphic, FeatureLayer]) => {
                 const map = new Map({
                     basemap: 'streets'
                 });
@@ -16,33 +16,15 @@ const Map = () => {
                     zoom: 11
                 });
 
-                // Layer
-                const layerShape = new GraphicsLayer();
-                map.add(layerShape);
-
-                const point = {
-                    type: 'point',
-                    longitude: -73.5674,
-                    latitude: 45.5019
-                };
-
-                const mark = new Graphic({
-                    geometry: point,
-                    symbol: {
-                        type: 'simple-marker',
-                        color: [226, 119, 50],
-                        outline: {
-                            color: [255, 255, 255],
-                            width: 1
-                        }
-                    },
-                    attributes: {
-                        pointName: 'point number 1',
-                        description: 'Testing marks'
+                const layer = new FeatureLayer({
+                    portalItem: {
+                        id: "7367a012263e4ba7a93d6ed551847ad4"
                     }
                 });
 
-                layerShape.add(mark);
+                map.add(layer);
+
+                
 
                 view.on('click', (event) => {
                     view.hitTest(event).then((response) => {
@@ -60,6 +42,7 @@ const Map = () => {
     }, []);
 
     return <div id='mapContainer' style={{ height: '500px' }}></div>;
+    
 };
 
 export default Map;
