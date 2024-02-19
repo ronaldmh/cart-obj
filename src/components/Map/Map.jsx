@@ -3,11 +3,13 @@ import { loadModules } from 'esri-loader';
 
 const Map = () => {
     useEffect(() => {
-        loadModules(['esri/Map', 'esri/views/MapView', 'esri/layers/GraphicsLayer', 'esri/Graphic', 'esri/layers/FeatureLayer'], { css: true })
-            .then(([Map, MapView, GraphicsLayer, Graphic, FeatureLayer]) => {
+        loadModules(['esri/Map', 'esri/views/MapView', 'esri/layers/GraphicsLayer', 'esri/Graphic', 'esri/layers/FeatureLayer', "esri/config"], { css: true })
+            .then(([Map, MapView, GraphicsLayer, Graphic, FeatureLayer, esriConfig]) => {
                 const map = new Map({
-                    basemap: 'streets'
+                    basemap: 'arcgis-topographic'
                 });
+
+                esriConfig.apiKey = 'AAPKff5200b312dd4d16ad1a90bcdd29a844ZkRNGDzDbAb4P3TbRd4LHlTBJ2P0iAGnXyOVHa2GxLKIOjmQJ7MUKlGlgX-iTtbD'; 
 
                 const view = new MapView({
                     container: 'mapContainer',
@@ -18,13 +20,22 @@ const Map = () => {
 
                 const layer = new FeatureLayer({
                     portalItem: {
-                        id: "7367a012263e4ba7a93d6ed551847ad4"
+                        id: "b8cc4278e0cf44acbc8a4dc7e5f59977" 
                     }
                 });
 
-                map.add(layer);
+                var featureLayer = new FeatureLayer({
+                    url: "https://catkna1u5mvjznyl.maps.arcgis.com/apps/mapviewer/index.html?layers=b8cc4278e0cf44acbc8a4dc7e5f59977"
+                  });
 
-                
+                // Verificar carga de la capa de entidades
+                map.add(layer);
+                console.log('Capa de entidades agregada al mapa:', layer);
+
+                // Verificar eventos de la capa de entidades
+                layer.on('click', (event) => {
+                    console.log('Entidad clickeada:', event);
+                });
 
                 view.on('click', (event) => {
                     view.hitTest(event).then((response) => {
@@ -42,7 +53,6 @@ const Map = () => {
     }, []);
 
     return <div id='mapContainer' style={{ height: '500px' }}></div>;
-    
 };
 
 export default Map;

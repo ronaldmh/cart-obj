@@ -1,32 +1,45 @@
 import React from 'react';
 import './App.css';
-import Map from './Map';
+import Header from './components/Header/Header';
+import Map from './components/Map/Map';
+import List from './components/List/List';
+import Form from './components/Form/Form';
+
+
 
 
 function App() {
+
+  
   return (
-    <div className="App">
-      <header className="App-header">
-        <h2>Street Objects</h2>
-      </header>
+   
+    <div className='App'>
 
-      <main>
+      <div className='header'>
+        <Header/>
+      </div>      
 
-      <div>
-        <h3>Map Search</h3>
-        <Map/>        
+      <div className='container'>
+
+        <div className='list-container'>
+          <List/>
+        </div>
+
+        <div className='map-container'>
+          <Map/>
+        </div>
+
+        <div>
+        <Form/>
       </div>
-      <div>
-        <iframe width="100%" height="600px" src="https://www.arcgis.com/apps/dashboards/36a003b733f34e26a7a08290ba3bf0ef" frameborder="0" scrolling="no"></iframe>
-        <a href='https://arcg.is/1bG4j50' target="_blank" rel="noopener noreferrer">Abrir Dashboard
-          </a>
+
+        
       </div>
-      <div>
-        <a></a>  
-      </div>       
-      </main>
+      
     </div>
-    
+
+
+
   );
 }
 
