@@ -24,10 +24,6 @@ const Map = () => {
                     }
                 });
 
-                var featureLayer = new FeatureLayer({
-                    url: "https://catkna1u5mvjznyl.maps.arcgis.com/apps/mapviewer/index.html?layers=b8cc4278e0cf44acbc8a4dc7e5f59977"
-                  });
-
                 // Verificar carga de la capa de entidades
                 map.add(layer);
                 console.log('Capa de entidades agregada al mapa:', layer);
